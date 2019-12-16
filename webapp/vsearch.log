@@ -1,0 +1,4 @@
+ImmutableMultiDict([('phrase', 'mierni'), ('letters', 'aeiou')])|127.0.0.1|Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36|{'i', 'e'}
+ImmutableMultiDict([('phrase', 'autostopowicz'), ('letters', 'aeiou')])|127.0.0.1|Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36|{'o', 'a', 'i', 'u'}
+ImmutableMultiDict([('phrase', 'galaktyka'), ('letters', 'tym')])|127.0.0.1|Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36|{'t', 'y'}
+ImmutableMultiDict([('phrase', 'pozdrowienia'), ('letters', 'aeiou')])|127.0.0.1|Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36|{'e', 'i', 'o', 'a'}

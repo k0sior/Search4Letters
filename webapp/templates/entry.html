@@ -1,0 +1,17 @@
+{% extends 'base.html' %} 
+
+{% block body %} 
+
+<h2>{{ the_title }} </h2>
+
+<form method='POST' action='/search4'>
+<table>
+<p> Użyj tego formularza, aby określić parametry wyszukiwania:</p>
+<tr><td>Fraza:</td><td><input name='phrase' type='TEXT' width='60'></td></tr>
+<tr><td>Litery:</td><td><input name='letters' type='TEXT' value='aeiou'></td></tr>
+</table>
+<p> Gdy będziesz gotów, kliknij ten przycisk:</p>
+<p><input value='Zrób to!' type='SUBMIT'></p>
+</form>
+
+{% endblock %}
