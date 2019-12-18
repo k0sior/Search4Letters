@@ -91,7 +91,7 @@ def view_the_log() -> 'html':
       print('Błąd: ', str(err))
    return 'ERROR'   
 
-app.secret_key = 'NigdyNieZgadnieszMojegoTajnegoKlucza'
+app.secret_key = 'SuperSecretKey'
 
 if __name__ == '__main__':
    app.run(debug=True)
