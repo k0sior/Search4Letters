@@ -17,21 +17,21 @@ app.config['dbconfig'] = { 'host': '127.0.0.1',
 @app.route('/login')
 def do_login() -> str:
    session['logged_in'] = True
-   return 'Jesteś zalogowany.'
+   return 'You are logged in.'
 
 @app.route('/logout')
 def do_logout() -> str:
    session.pop('logged_in')
-   return 'NIE jesteś zalogowany.'
+   return 'You are NOT logged in.'
 
 
 @app.route('/search4', methods=['POST'])
 def do_search() -> 'html':
-   """Wydobywa przekazane dane; przeprowadza wyszukiwanie; zwraca wyniki."""
+   """Uses given data to search, returns result"""
    
    @copy_current_request_context
    def log_request(req: 'flask_request', res: str) -> None:
-      """Loguje szczegóły żądania sieciowego oraz wyniki."""  
+      """Saving given query and results in log."""  
       with UseDatabase(app.config['dbconfig']) as cursor:   
          _SQL = """insert into log
                   (phrase, letters, ip, browser_string, results)
@@ -45,13 +45,13 @@ def do_search() -> 'html':
       
    phrase = request.form['phrase']
    letters = request.form['letters']
-   title = 'Oto Twoje wyniki:'
+   title = 'Those are your results:'
    results = str(search4letters(phrase, letters))
    try:
       t = Thread(target=log_request, args=(request, results))
       t.start()
    except Exception as err:
-      print('***** Logowowanie nie powiodło się, błąd: ', str(err))
+      print('***** Login failed, error: ', str(err))
    return render_template('results.html',
                           the_title=title,
                           the_phrase=phrase,
@@ -61,34 +61,34 @@ def do_search() -> 'html':
 @app.route('/')
 @app.route('/entry')
 def entry_page() -> 'html':
-   """Wyświetla formularz HMTL tej aplikacji WWW."""
+   """Prints HTML formula"""
    return render_template('entry.html',
-                          the_title='Witamy na stronie internetowej search4letters!')
+                          the_title='Welcome on website: search4letters!')
 
 @app.route('/viewlog')
 @check_logged_in
 def view_the_log() -> 'html':
-   """Wyświetla zawartość pliku logu w postaci tabeli HTML"""
+   """Prints the log in HTML table"""
    try:
       with UseDatabase(app.config['dbconfig']) as cursor:
          _SQL = """ select phrase, letters, ip, browser_string,
                results from log"""
          cursor.execute(_SQL)
          contents = cursor.fetchall()
-      titles = ('Fraza', 'Litery', 'Adres klienta',
-                'Agent użytkownika', 'Wyniki')
+      titles = ('Phrase', 'Letters', 'IP',
+                'User agent', 'Results')
       return render_template('viewlog.html',
-                             the_title='Widok logu',
+                             the_title='Log view',
                              the_row_titles=titles,
                              the_data=contents,)
    except ConnectionError as err:
-      print('Problem z łączaniem z bazą danych, błąd: ', str(err))
+      print('Error with connecting to database, error: ', str(err))
    except CredentialsError as err:
-      print('Problem z ID użytkownika lub hasłem, błąd: ', str(err))
+      print('Wrong ID or password, error: ', str(err))
    except SQLError as err:
-      print('Nie poprawne zapytanie, błąd: ', str(err))
+      print('Query Error: ', str(err))
    except Exception as err:
-      print('Błąd: ', str(err))
+      print('Error: ', str(err))
    return 'ERROR'   
 
 app.secret_key = 'SuperSecretKey'
