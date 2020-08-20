@@ -19,10 +19,10 @@ class UseDatabase:
             self.conn = mysql.connector.connect(**self.configuration)
             self.cursor = self.conn.cursor()
             return self.cursor
-        #Błąd z połaczeniem z bazą danych
+        #Connection error with DB
         except mysql.connector.errors.InterfaceError as err:
             raise ConnectionError(err)
-        #Błąd z id lub pw
+        #Error with id or password
         except mysql.connector.errors.ProgrammingError as err:
             raise CredentialsError(err)
         
