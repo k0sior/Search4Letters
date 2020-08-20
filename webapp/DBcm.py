@@ -30,7 +30,7 @@ class UseDatabase:
         self.conn.commit()
         self.cursor.close()
         self.conn.close()
-        #Błąd, niepoprawne zapytanie
+        #Query error
         if mysql.connector.errors.ProgrammingError:
             raise SQLError(exc_value)
         elif exc_type:
